@@ -35,10 +35,13 @@ class IR_API PassRegistry {
   }
 
   void Insert(const std::string &pass_type, const PassCreator &pass_creator) {
-    PADDLE_ENFORCE_NE(Has(pass_type),
-                      true,
-                      common::errors::InvalidArgument(
-                          "Pass %s has been registered.", pass_type));
+    // PADDLE_ENFORCE_NE(Has(pass_type),
+    //                   true,
+    //                   common::errors::InvalidArgument(
+    //                       "Pass %s has been registered.", pass_type));
+    if (Has(pass_type)) {
+      return;
+    }
     pass_map_.insert({pass_type, pass_creator});
   }
 
